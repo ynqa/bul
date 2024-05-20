@@ -34,7 +34,7 @@ pub enum Signal {
 
 /// Interactive Kubernetes log viewer
 #[derive(Parser)]
-#[command(name = "bul")]
+#[command(name = "bul", version)]
 pub struct Args {
     #[arg(long = "context", help = "Kubernetes context.")]
     pub context: Option<String>,
