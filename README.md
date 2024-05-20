@@ -22,6 +22,20 @@
 > Please note that *bul* is still at a conceptual stage and in early development.
 > Future updates may significantly alter its search capabilities and user interface.
 
+## Installation
+
+### Homebrew
+
+```bash
+brew install ynqa/tap/bul
+```
+
+### Cargo
+
+```bash
+cargo install bul
+```
+
 ## Motivation
 
 I frequently utilize `kubectl logs` or [stern](https://github.com/stern/stern)
