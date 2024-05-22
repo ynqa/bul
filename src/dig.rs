@@ -57,47 +57,37 @@ impl promkit::Renderer for Digger {
                 .texteditor
                 .text_without_cursor()
         {
-            if self
+            let query = self
                 .text_editor_snapshot
                 .after()
                 .texteditor
                 .text_without_cursor()
-                .is_empty()
-            {
-                self.logs_snapshot.after_mut().listbox = self.logs_snapshot.init().listbox.clone();
-            } else {
-                let query = self
-                    .text_editor_snapshot
-                    .after()
-                    .texteditor
-                    .text_without_cursor()
-                    .to_string();
+                .to_string();
 
-                let list: Vec<StyledGraphemes> = self
-                    .log_queue
-                    .par_iter()
-                    .filter_map(|log| {
-                        log.body
-                            .clone()
-                            .highlight(
-                                &query,
-                                StyleBuilder::new()
-                                    .bgc(Color::Yellow)
-                                    .fgc(Color::Black)
-                                    .build(),
-                            )
-                            .map(|body| {
-                                StyledGraphemes::from_iter([
-                                    &log.meta,
-                                    &StyledGraphemes::from(" "),
-                                    &body,
-                                ])
-                            })
-                    })
-                    .collect();
+            let list: Vec<StyledGraphemes> = self
+                .log_queue
+                .par_iter()
+                .filter_map(|log| {
+                    log.body
+                        .clone()
+                        .highlight(
+                            &query,
+                            StyleBuilder::new()
+                                .bgc(Color::Yellow)
+                                .fgc(Color::Black)
+                                .build(),
+                        )
+                        .map(|body| {
+                            StyledGraphemes::from_iter([
+                                &log.meta,
+                                &StyledGraphemes::from(" "),
+                                &body,
+                            ])
+                        })
+                })
+                .collect();
 
-                self.logs_snapshot.after_mut().listbox = listbox::Listbox::from_iter(list);
-            }
+            self.logs_snapshot.after_mut().listbox = listbox::Listbox::from_iter(list);
         }
         signal
     }

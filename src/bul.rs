@@ -102,25 +102,7 @@ pub async fn run(
                         }
                         queue.push_back(log.clone());
 
-                        if text_editor
-                            .texteditor
-                            .text_without_cursor()
-                            .to_string()
-                            .is_empty()
-                        {
-                            let merge = StyledGraphemes::from_iter([
-                                log.meta,
-                                StyledGraphemes::from(" "),
-                                log.body,
-                            ])
-                            .matrixify(size.0 as usize, size.1 as usize, 0)
-                            .0;
-                            let term = readonly_term.read().await;
-                            term.draw_stream_and_pane(
-                                merge,
-                                &text_editor.create_pane(size.0, size.1),
-                            )?;
-                        } else if let Some(body) = log.body.highlight(
+                        if let Some(body) = log.body.highlight(
                             &text_editor.texteditor.text_without_cursor().to_string(),
                             StyleBuilder::new()
                                 .bgc(Color::Yellow)

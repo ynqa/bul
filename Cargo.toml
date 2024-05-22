@@ -15,7 +15,8 @@ futures = "0.3.30"
 futures-timer = "3.0.3"
 k8s-openapi = { version = "0.22.0", default_features = false, features = ["v1_29"] }
 kube = { version = "0.91.0", default_features = false, features = ["client", "rustls-tls"] }
-promkit = "0.4.2"
+# promkit = "0.4.2"
+promkit = { path = "../promkit/promkit" }
 rayon = "1.10.0"
 regex = "1.10.4"
 strip-ansi-escapes = "0.2.0"
